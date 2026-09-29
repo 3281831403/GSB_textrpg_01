@@ -151,7 +151,7 @@ def prompt():
     print('\n' + "=" * 25)
     print("What would you like to do?")
     acceptable_actions = {'move', 'quit', 'look'}
-    print(acceptable_actions)
+    print(sorted(acceptable_actions))
     while True:
         action = input("> ").lower().strip()
         if action == 'quit':
@@ -170,27 +170,23 @@ def player_move():
     # Based on current location
     # only allow those options as choices
     print('Directions: ', 'n','e','s','w')
-    dest = input("Where would you like to move to? \n" ">").strip().lower()
-
-    while dest not in ['n','e','s','w']:
-        print("Not a valid location to move.")
-        dest = input("Where would you like to move to? \n" ">").strip().lower()
-        break
-
+    valid_directions = ('n', 'e', 's', 'w')
     while True:
-        new_location = getattr(zones[myPlayer.location], dest)
-        if new_location == '':
-            print("Invalid move")
-            player_move()
-        else:
-            movement_handler(new_location)
-        break
+        dest = input("Where would you like to move to? \n" ">").strip().lower()
+        if dest in valid_directions:
+            break
+        print("Not a valid location to move.")
+
+    new_location = getattr(zones[myPlayer.location], dest)
+    if new_location == '':
+        print("There is no zone in that direction. You remain in " + myPlayer.location + ".")
+        return
+    movement_handler(new_location)
 
 
 def movement_handler(dest):
     print("You have moved to " + dest + ".")
     myPlayer.location = dest
-    main_game_loop()
 
 
 def player_look():
@@ -246,4 +242,5 @@ def win_condition():
         main_game_loop()
 
 
-title_screen()
+if __name__ == '__main__':
+    title_screen()

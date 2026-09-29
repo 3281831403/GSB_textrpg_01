@@ -22,13 +22,13 @@ class Zone:
     def __init__(self, name: str, solved: bool) -> None:
         self.name = name
         self.solved = solved
-        self.description = '',
-        self.look = '',
-        self.riddle = '',
-        self.answer = '',
-        self.n = '',
-        self.e = '',
-        self.s = '',
+        self.description = ''
+        self.look = ''
+        self.riddle = ''
+        self.answer = ''
+        self.n = ''
+        self.e = ''
+        self.s = ''
         self.w = ''
 
 
@@ -42,6 +42,7 @@ with open('riddles.txt', 'r', encoding="utf8") as r:
 riddle_lines = [i.strip() for i in riddle_lines if i.strip() != ""]
 
 # random sort
+random.seed(0)
 random.shuffle(riddle_lines)
 
 letters = ['a', 'b', 'c', 'd']
